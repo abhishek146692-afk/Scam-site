@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine 💙</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg,#0a2540,#1e6091,#89c2d9);
+        overflow: hidden;
+        color: white;
+        text-align: center;
+    }
+
+    .container {
+        background: rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+
+    button {
+        padding: 12px 28px;
+        font-size: 18px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin: 10px;
+        transition: transform 0.2s ease;
+    }
+
+    #yesBtn {
+        background-color: #89c2d9;
+        color: #0a2540;
+        font-weight: bold;
+    }
+
+    #yesBtn:hover {
+        transform: scale(1.1);
+    }
+
+    #noBtn {
+        background-color: #1e6091;
+        color: white;
+        position: relative;
+    }
+
+    #celebration {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        font-size: 3rem;
+        font-weight: bold;
+        animation: pop 0.8s forwards;
+        display: none;
+    }
+
+    @keyframes pop {
+        0% { transform: translate(-50%, -50%) scale(0); }
+        70% { transform: translate(-50%, -50%) scale(1.3); }
+        100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    /* Confetti */
+    .confetti {
+        position: fixed;
+        width: 10px;
+        height: 10px;
+        top: -10px;
+        animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+        to {
+            transform: translateY(110vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Raju da will you be my valentine? 💙</h1>
+    <button id="yesBtn">Yes 💙</button>
+    <button id="noBtn">No</button>
+</div>
+
+<div id="celebration">YAAAAY! 🎉</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const celebration = document.getElementById("celebration");
+
+/* NO button escapes dramatically */
+function moveButton() {
+    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+    noBtn.style.position = "absolute";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+/* YES button celebration */
+yesBtn.onclick = () => {
+    celebration.style.display = "block";
+    createConfetti();
+};
+
+/* Confetti generator */
+function createConfetti() {
+    for(let i = 0; i < 120; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.backgroundColor =
+            ["#89c2d9","#1e6091","#0a2540"][Math.floor(Math.random()*3)];
+
+        confetti.style.animationDuration =
+            (Math.random()*3 + 2) + "s";
+
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 5000);
+    }
+}
+</script>
+
+</body>
+</html>
